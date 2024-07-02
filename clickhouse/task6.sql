@@ -8,7 +8,8 @@ create table if not exists current.registered_dogs
     arrival_date	Date,
     departure_date	Date
 )
-engine = MergeTree() order by dog_id;
+engine = ReplacingMergeTree()
+order by dog_id;
 
 create materialized view stage.registered_dogs_current to current.registered_dogs as
 select dog_id, owner_id, name, breed, age, arrival_date, departure_date
