@@ -18,10 +18,9 @@ producer = Producer(**config)
 
 
 def data():
-
     from clickhouse_driver import Client
 
-    with open(f"./../ch.json") as json_file:
+    with open(f"./ch.json") as json_file:
         data = json.load(json_file)
 
     client = Client(
