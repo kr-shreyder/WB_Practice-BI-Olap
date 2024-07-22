@@ -1,17 +1,10 @@
 from confluent_kafka import Producer
-import numpy as np
 import pandas as pd
-
-from json import JSONEncoder
 import json
 
 config = {
-    "bootstrap.servers": "localhost:9093",  # адрес Kafka сервера
-    "client.id": "simple-producer",
-    "sasl.mechanism": "PLAIN",
-    "security.protocol": "SASL_PLAINTEXT",
-    "sasl.username": "admin",
-    "sasl.password": "admin-secret",
+    "bootstrap.servers": "172.16.125.206:29092",  # адрес Kafka сервера
+    "client.id": "simple-producer"
 }
 
 producer = Producer(**config)
@@ -33,7 +26,7 @@ def data():
         compression=True,
     )
     res = client.execute(
-        "select wbitem, supplier_id, dt, tare_sticker, nm_id from default.wbitemDeclaration_log limit 150"
+        "select wbitem, supplier_id, tare_sticker, nm_id from default.wbitemDeclaration_log limit 150"
     )
 
     return res
@@ -63,6 +56,6 @@ if __name__ == "__main__":
     res = data()
     for i in range(len(res)):
         result = res[i]
-        pp = pd.DataFrame([result], columns=["wbitem", "supplier_id", "dt", "tare_sticker", "nm_id"])
+        pp = pd.DataFrame([result], columns=["wbitem", "supplier_id", "tare_sticker", "nm_id"])
         send_message(pp.to_json(orient="records")[1:-1])
     producer.flush()
