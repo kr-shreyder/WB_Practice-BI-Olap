@@ -1,3 +1,8 @@
 /venv
 ch.json
 /spark/Streams/credentials.json
+/airflow/dags/__pycache_
+/airflow/dags/keys
+/airflow/logs
+/airflow/config
+/airflow/plugins
