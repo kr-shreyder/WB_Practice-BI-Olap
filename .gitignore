@@ -6,3 +6,4 @@ ch.json
 /airflow/logs
 /airflow/config
 /airflow/plugins
+/DQ/datalens
